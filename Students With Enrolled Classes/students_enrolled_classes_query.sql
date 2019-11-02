@@ -1,11 +1,10 @@
 USE education_management_schema;
 
-SELECT s.students_name AS 'Student Name', s.students_email AS 'e-mail', c.courses_name AS 'Course Title'
+SELECT s.students_name, c.courses_name
 FROM students s
-	JOIN grades g
-	ON g.grades_students_id = s.students_id
-    JOIN courses c
-    ON c.courses_id = g.grades_courses_id
-WHERE g.grades_grade > 0
-GROUP BY s.students_name;
-    
+JOIN courses_students cs
+ON s.students_id = cs.student_id
+JOIN courses c 
+ON c.courses_id = cs.course_id
+GROUP BY c.courses_name
+ORDER BY s.students_name;
